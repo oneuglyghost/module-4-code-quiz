@@ -1,6 +1,6 @@
 :root{
     --selected: rgb(217, 0, 255);
-    --button : rgb(1, 1, 87);
+    --button : rgb(46, 46, 94);
 }
 header {
     display: flex;
@@ -26,7 +26,7 @@ header {
     padding-left: 20px;
     padding-right: 20px;
 }
-#start-button{
+#start-button {
     padding: 5px;
     margin-top: 15px;
     color: white;
@@ -36,4 +36,45 @@ header {
 h1 {
     font-size: 30px;
     margin-bottom: 15px;
+}
+
+
+.questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding-top: 50vh;
+    transform: translate(0, -30%);
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    
+}
+h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.answers{
+    text-align: left;
+    align-items: flex-start;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 400px;
+    color: white;
+    background-color: var(--button);
+    border-radius: 5px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    
+}
+#deco-line {
+    position: absolute;
+    background-color: lightgray;
+    height: 2px;
+    bottom: -10px;
+    right: 20px;
+    left: 20px;
 }
