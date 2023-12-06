@@ -6,6 +6,7 @@ header {
     display: flex;
     position: relative;
 }
+a:hover { color: var(--selected); }
 
 .high-scores{
     padding: 20px;
