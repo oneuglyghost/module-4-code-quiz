@@ -1,0 +1,39 @@
+:root{
+    --selected: rgb(217, 0, 255);
+    --button : rgb(1, 1, 87);
+}
+header {
+    display: flex;
+    position: relative;
+}
+
+.high-scores{
+    padding: 20px;
+    flex: 1;
+    color: var(--selected);
+}
+.timer{
+    padding: 20px;
+    flex: 0;
+}
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 50vh;
+    transform: translate(0, -30%);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#start-button{
+    padding: 5px;
+    margin-top: 15px;
+    color: white;
+    background-color: var(--button);
+    border-radius: 5px;
+}
+h1 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
