@@ -11,45 +11,65 @@ var correct = [
     "1.color", "1.HyperText Markup Language", "1./* This is a comment */", "2.margin",
 ];
   
-  // get currentQuestionIndex and remainingTime from localStorage or set to 0
-  let currentQuestionIndex = parseInt(localStorage.getItem('currentQuestionIndex')) || 0;
-  let remainingTime = parseInt(localStorage.getItem('remainingTime')) || 0;
-  var ProblemNumber = currentQuestionIndex
+// get currentQuestionIndex and remainingTime from localStorage or set to 0
+let currentQuestionIndex = parseInt(localStorage.getItem('currentQuestionIndex')) || 0;
+let remainingTime = parseInt(localStorage.getItem('remainingTime')) || 0;
+var ProblemNumber = currentQuestionIndex  
   
   
   
-  // update question number element
-  function updateQuestionNumber() {
-    let questionNumberElement = document.getElementById("questionNumber");
-    if (questionNumberElement) {
-      questionNumberElement.textContent = "Question Number: " + (ProblemNumber);
-    }
+// update question number element
+function updateQuestionNumber() {
+  let questionNumberElement = document.getElementById("questionNumber");
+  if (questionNumberElement) {
+    questionNumberElement.textContent = "Question Number: " + (ProblemNumber);
   }
+}
 
   
-  // update timer element
-  function updateTimer() {
-    let timerElement = document.getElementById("timerDisplay");
-    if (timerElement) {
-      timerElement.textContent = "Timer: " + remainingTime + "s";
-    }
+// update timer element
+function updateTimer() {
+  let timerElement = document.getElementById("timerDisplay");
+  if (timerElement) {
+    timerElement.textContent = "Timer: " + remainingTime + "s";
   }
+}
 
+function checkAnswer(buttonText){
+  // checks if the clicked text matches any item in "correct"
+  if (correct.includes(buttonText)) {
+    console.log("correct ");
+  } else {
+    console.log("incorrect")
+  }
+}
   
-  // check if there are more questions
+// check if there are more questions
   function nextQuestion() {
-    
-    if (currentQuestionIndex < pages.length - 0) {
-      currentQuestionIndex++;
-      updateQuestionNumber();
-      // save the currentQuestionIndex in localStorage
-      localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
-      // go to next question
-      window.location.href = pages[currentQuestionIndex];
-    } else {
-      // change to score screen
-      alert('last question');
+    console.log("nextQuestion")
+    //gets text from clicked button
+    var buttonText = event.target.textContent.trim();
+    console.log("Button text:", buttonText);
+
+    if (buttonText === "Start Quiz") {
+      console.log("quiz Started");
+    } else{
+      checkAnswer(buttonText);
     }
+
+
+
+   // if (currentQuestionIndex < pages.length - 0) {
+     // currentQuestionIndex++;
+      //updateQuestionNumber();
+      // save the currentQuestionIndex in localStorage
+      //localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
+      // go to next question
+      //window.location.href = pages[currentQuestionIndex];
+    //} else {
+      // change to score screen
+     // alert('last question');
+    //}
   }
   
   // takes you to the first question
@@ -108,4 +128,4 @@ var correct = [
     if (remainingTime > 0) {
       startTimer();
     }
-  }
+  }  
