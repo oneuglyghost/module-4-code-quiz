@@ -72,7 +72,11 @@ h3{
     border-radius: 5px;
     margin-right: auto;
     margin-bottom: 10px;
-    
+    transition: background-color 0.4 ease, color 0.3s ease;
+
+}
+.answers:hover{
+    background-color: var(--selected);
 }
 #deco-line {
     position: absolute;
@@ -81,4 +85,31 @@ h3{
     bottom: -10px;
     right: 20px;
     left: 20px;
+}
+/*-----scoreSubmit page-----*/
+h4{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+#scoreDisplay, label{
+    font-size: 20px;
+}
+#userInput {
+    width: 150px;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 0;
+    background-color: rgb(220, 216, 244);
+    border-style: groove;
+}
+.submitButton{
+    font-size: 15px;
+    padding: 3px;
+    vertical-align: bottom;
+    background-color: var(--button);
+    color: white;
+    transition: background-color 0.4 ease, color 0.3s ease;
+}
+.submitButton:hover{
+    background-color: var(--selected);
 }

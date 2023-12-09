@@ -67,6 +67,14 @@ function checkAnswer(buttonText){
     updateTimer();
   }
 }
+
+// shows final sscore
+function updateScore(){
+  var scoreDisplay = document.getElementById("scoreDisplay");
+  if (scoreDisplay) {
+    scoreDisplay.textContent = "Score:" + score;
+  }
+}
   
 // check if there are more questions
 function nextQuestion() {
@@ -136,6 +144,7 @@ function startTimer() {
 updateQuestionNumber();
 updateTimer();
 UpdateResult();
+updateScore()
   
   // event listener for "Start Quiz" if it exists and has not been attached yet
 if (currentQuestionIndex === 0) {
@@ -152,4 +161,14 @@ if (currentQuestionIndex === 0) {
   if (remainingTime > 0) {
     startTimer();
   }
-}  
+}
+
+
+// submit users score
+function submitScore(){
+  var userInput = document.getElementById("userInput").value;
+  var userScore = parseInt(localStorage.getItem("score")) || 0;
+
+//get existing high scores or make a new array
+
+}
