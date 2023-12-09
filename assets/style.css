@@ -57,6 +57,9 @@ h2 {
     font-size: 20px;
     margin-bottom: 15px;
 }
+h3{
+    font-size: 30px
+}
 .answers{
     text-align: left;
     align-items: flex-start;

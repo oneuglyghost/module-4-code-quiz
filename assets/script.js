@@ -15,7 +15,7 @@ var correct = [
 let currentQuestionIndex = parseInt(localStorage.getItem('currentQuestionIndex')) || 0;
 let remainingTime = parseInt(localStorage.getItem('remainingTime')) || 0;
 var ProblemNumber = currentQuestionIndex  
-  
+var score =parseInt(localStorage.getItem("score")) || 0;
   
   
 // update question number element
@@ -34,98 +34,122 @@ function updateTimer() {
     timerElement.textContent = "Timer: " + remainingTime + "s";
   }
 }
+// updates checked answer
+function UpdateResult() {
+  var resultElement = document.getElementById("result");
+  var storeResult =localStorage.getItem("result");
+  if (resultElement && storeResult){
+    resultElement.textContent = storeResult;
+  }
+}
 
 function checkAnswer(buttonText){
   // checks if the clicked text matches any item in "correct"
+  var displayResult = document.getElementById("result");
+
   if (correct.includes(buttonText)) {
-    console.log("correct ");
+    displayResult.textContent = "Correct!";
+    localStorage.setItem("result", "Correct!")
+
+    //adds 5points to score
+    score += 5;
+    localStorage.setItem("score", score);
+
   } else {
-    console.log("incorrect")
+    displayResult.textContent = "Incorrect";
+    localStorage.setItem("result", "Incorrect")
+    
+    // subtract 5 seconds from timer
+    var remainingTime = parseInt(localStorage.getItem("remainingTime")) || 0;
+    remainingTime = Math.max(0, remainingTime - 5); // stops it from going bellow 0
+    localStorage.setItem("remainingTime", remainingTime);
+
+    updateTimer();
   }
 }
   
 // check if there are more questions
-  function nextQuestion() {
-    console.log("nextQuestion")
-    //gets text from clicked button
-    var buttonText = event.target.textContent.trim();
-    console.log("Button text:", buttonText);
+function nextQuestion() {
+  console.log("nextQuestion")
+  //gets text from clicked button
+  var buttonText = event.target.textContent.trim();
+  console.log("Button text:", buttonText);
 
-    if (buttonText === "Start Quiz") {
-      console.log("quiz Started");
-    } else{
-      checkAnswer(buttonText);
-    }
-
-
-
-   // if (currentQuestionIndex < pages.length - 0) {
-     // currentQuestionIndex++;
-      //updateQuestionNumber();
-      // save the currentQuestionIndex in localStorage
-      //localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
-      // go to next question
-      //window.location.href = pages[currentQuestionIndex];
-    //} else {
-      // change to score screen
-     // alert('last question');
-    //}
+  if (buttonText === "Start Quiz") {
+    console.log("quiz Started");
+  } else{
+    checkAnswer(buttonText);
   }
-  
-  // takes you to the first question
-  function startQuiz() {
-    console.log("startQuiz function called")
-    // save the currentQuestionIndex in localStorage
+
+  if (currentQuestionIndex < pages.length - 0) {
+    currentQuestionIndex++;
+    updateQuestionNumber();
+     //save the currentQuestionIndex in localStorage
     localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
-    if (remainingTime === 0) {
-      remainingTime = 75;
-      localStorage.setItem("remainingTime", remainingTime);
-  
-      // starts the countdown 
-      startTimer();
-      // Move to the next question after starting the quiz
-      nextQuestion();
-    }
+     //go to next question
+    window.location.href = pages[currentQuestionIndex];
+  } else {
+     //change to score screen
+    alert('last question');
   }
+}  
+  
+ // takes you to the first question
+function startQuiz() {
+  console.log("startQuiz function called")
+  // save the currentQuestionIndex in localStorage
+  localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
+
+  if (remainingTime === 0) {
+    remainingTime = 75;
+    localStorage.setItem("remainingTime", remainingTime);
+
+    // starts the countdown 
+    startTimer();
+    // Move to the next question after starting the quiz
+    nextQuestion();
+  }
+}  
   
   // Start the countdown timer
-  function startTimer() {
+function startTimer() {
     // Update the timer every second
-    const timerInterval = setInterval(function () {
-      remainingTime--;
+  const timerInterval = setInterval(function () {
+    remainingTime--;
   
       // Save the remaining time in localStorage
-      localStorage.setItem('remainingTime', remainingTime);
+    localStorage.setItem('remainingTime', remainingTime);
   
       // Update the timer display
-      updateTimer();
+    updateTimer();
   
       // Check if time has run out
-      if (remainingTime <= 0) {
-        clearInterval(timerInterval); // Stop the timer
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval); // Stop the timer
         // Perform actions when time is up 
-        alert('Time is up!');
-      }
-    }, 1000);
-  }
+      alert('Time is up!');
+    }
+  }, 1000);
+}  
   
-  // For other pages, update question number and timer
+// For other pages, update question number and timer
+updateQuestionNumber();
+updateTimer();
+UpdateResult();
+  
+  // event listener for "Start Quiz" if it exists and has not been attached yet
+if (currentQuestionIndex === 0) {
+  console.log("attaching event listener");
+  let startButton = document.getElementById("start-button");
+  if (startButton) {
+    startButton.addEventListener("click", startQuiz);
+  }
+} else {
+  console.log("not attaching event listener current index:"+ currentQuestionIndex);
   updateQuestionNumber();
   updateTimer();
   
-  // event listener for "Start Quiz" if it exists and has not been attached yet
-  if (currentQuestionIndex === 0) {
-    console.log("attaching event listener");
-    let startButton = document.getElementById("start-button");
-    if (startButton) {
-      startButton.addEventListener("click", startQuiz);
-    }
-  } else {
-    console.log("not attaching event listener current index:"+ currentQuestionIndex);
-    updateQuestionNumber();
-    updateTimer();
-  
-    if (remainingTime > 0) {
-      startTimer();
-    }
-  }  
+  if (remainingTime > 0) {
+    startTimer();
+  }
+}  
