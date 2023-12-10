@@ -6,8 +6,8 @@ const pages = [
   ];
 
 var correct = [
-    "1.background-image: url(image.jpg)", "2.margin: auto;", "2.It adds space inside the border of an element.",
-    "1.a:hover { color: red; }", "2.It contains metadata about the document", "1.background-image: url(image.jpg)",
+    "2.var x;", "2.margin: auto;", "2.It adds space inside the border of an element.",
+    "1.a:hover { color: red; }", "2.It contains metadata about the document", "1. Checks for equality without type coercion",
     "1.color", "1.HyperText Markup Language", "1./* This is a comment */", "2.margin",
 ];
   
@@ -16,8 +16,8 @@ let currentQuestionIndex = parseInt(localStorage.getItem('currentQuestionIndex')
 let remainingTime = parseInt(localStorage.getItem('remainingTime')) || 0;
 var ProblemNumber = currentQuestionIndex  
 var score =parseInt(localStorage.getItem("score")) || 0;
-  
-  
+let timerInterval;  
+
 // update question number element
 function updateQuestionNumber() {
   let questionNumberElement = document.getElementById("questionNumber");
@@ -89,18 +89,15 @@ function nextQuestion() {
     checkAnswer(buttonText);
   }
 
-  if (currentQuestionIndex < pages.length) {
+  if (currentQuestionIndex < pages.length - 1) {
     currentQuestionIndex++;
     updateQuestionNumber();
      //save the currentQuestionIndex in localStorage
     localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
-    console.log("3");
      //go to next question
     window.location.href = pages[currentQuestionIndex];
-    console.log("1");
   } else {
      //change to score screen
-     console.log("2");
     window.location.href = "scoreSubmit.html";
   }
 }  
@@ -120,12 +117,12 @@ function startQuiz() {
     // Move to the next question after starting the quiz
     nextQuestion();
   }
-}  
+}
   
   // Start the countdown timer
 function startTimer() {
     // Update the timer every second
-  const timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     remainingTime--;
   
       // Save the remaining time in localStorage
@@ -141,9 +138,26 @@ function startTimer() {
       window.location.href = "scoreSubmit.html";
     }
   }, 1000);
-}  
-  
 
+}  
+// stops the timer and sets it to 0 when scoreSubmit page opens
+function stopTimerandReset(){
+  clearInterval(timerInterval);
+  remainingTime = 0; //makes timer 0
+  localStorage.setItem("remainingTime", remainingTime);
+  updateTimer();
+
+  //reset the question index
+  currentQuestionIndex = 0;
+  localStorage.setItem("currentQuestionIndex", currentQuestionIndex);
+  updateQuestionNumber();
+}
+//resets the score
+function resetscore(){
+  score = 0;
+  localStorage.setItem("score",score);
+  updateScore();
+}
   // event listener for "Start Quiz" if it exists and has not been attached yet
 if (currentQuestionIndex === 0) {
   console.log("attaching event listener");

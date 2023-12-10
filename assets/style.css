@@ -6,16 +6,15 @@ header {
     display: flex;
     position: relative;
 }
-a:hover { color: var(--selected); }
 
 .high-scores{
     padding: 20px;
     flex: 1;
     color: var(--selected);
+    z-index: 1;
 }
 .timer{
     padding: 20px;
-    flex: 0;
 }
 .intro {
     display: flex;
@@ -120,7 +119,6 @@ h4{
     flex-direction: column;
     align-items: center;
     padding-top: 50vh;
-    transform: translate(0, -30%);
     padding-left: 20px;
     padding-right: 20px;
     max-width: 50vw;

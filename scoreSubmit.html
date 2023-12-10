@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <div class = "high-scores">View high scores</div>
+        <a href="highScores.html" class="high-scores">View high scores</a>
         <div class="timer" id="timerDisplay">Timer: 75s</div>
     </header>
         <div class="questions">
@@ -18,9 +18,13 @@
             <P id= "scoreDisplay"></P>
             <label for="userInput">Enter Initials:</label>
             <input type="text" id="userInput" placeholder="...">
-            <button class ="submitButton" onclick="submitScore()" >Submit</button>
+            <button class ="submitButton" onclick="submitScore(),resetscore() " >Submit</button>
         </div>
-  
-    <script src="./assets/script.js"></script>
+    <script src="./assets/script.js"></script>    
+    <script>/*--calls function when page opens--*/
+        document.addEventListener("DOMContentLoaded", function () {
+            stopTimerandReset();
+        });
+    </script>    
 </body>
 </html>
