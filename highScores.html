@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HigScores</title>
     <link rel="stylesheet" href="./assets/reset.css">
     <link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -13,14 +13,14 @@
         <div class = "high-scores">View high scores</div>
         <div class="timer" id="timerDisplay">Timer: 75s</div>
     </header>
-        <div class="questions">
+        <div class="HighScores">
             <h4> High Scores<h3>
                 <!--for displaying high score list-->
-            <ol id="highScoresList">
-                
-            </ol>
-            <button class ="backButton" onclick="" >Go Back</button>
-            <button class ="backButton" onclick="" >Clear High scores</button>
+            <ol id="highScoresList"></ol>
+            <div class="class = higscoreButtons">
+                <button id ="backButton" onclick="goBack()" >Go Back</button>
+                <button id ="clearButton" onclick="clearLocalStorage()" >Clear High scores</button>
+            </div>
         </div>
   
     <script src="./assets/script.js"></script>

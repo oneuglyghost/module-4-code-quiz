@@ -89,16 +89,19 @@ function nextQuestion() {
     checkAnswer(buttonText);
   }
 
-  if (currentQuestionIndex < pages.length - 0) {
+  if (currentQuestionIndex < pages.length) {
     currentQuestionIndex++;
     updateQuestionNumber();
      //save the currentQuestionIndex in localStorage
     localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
+    console.log("3");
      //go to next question
     window.location.href = pages[currentQuestionIndex];
+    console.log("1");
   } else {
      //change to score screen
-    alert('last question');
+     console.log("2");
+    window.location.href = "scoreSubmit.html";
   }
 }  
   
@@ -135,17 +138,12 @@ function startTimer() {
     if (remainingTime <= 0) {
       clearInterval(timerInterval); // Stop the timer
         // Perform actions when time is up 
-      alert('Time is up!');
+      window.location.href = "scoreSubmit.html";
     }
   }, 1000);
 }  
   
-// For other pages, update question number and timer
-updateQuestionNumber();
-updateTimer();
-UpdateResult();
-updateScore()
-  
+
   // event listener for "Start Quiz" if it exists and has not been attached yet
 if (currentQuestionIndex === 0) {
   console.log("attaching event listener");
@@ -170,5 +168,60 @@ function submitScore(){
   var userScore = parseInt(localStorage.getItem("score")) || 0;
 
 //get existing high scores or make a new array
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+highScores.push({name:userInput, score: userScore});
+
+// to sort high scores arrey by score 
+highScores.sort(function (a, b){
+  return b.score -a.score;
+});
+
+localStorage.setItem("highScores", JSON.stringify(highScores));
+
+window.location.href = "highScores.html";
 
 }
+
+
+// display the high scores when page opens
+function displayHighScores(){
+
+  //checks if we are in the right html
+  if (location.pathname.includes("highScores.html")){
+    var highScoresList = document.getElementById("highScoresList");
+  
+
+    var highScoresList = document.getElementById("highScoresList");
+
+    // get high scores from local storage
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    // fill list with scores
+    highScoresList.innerHTML = "";
+    highScores.forEach(function(score, index) {
+      var listItem = document.createElement("li");
+      listItem.textContent = `${index + 1}. ${score.name} - ${score.score}`;
+      highScoresList.appendChild(listItem);
+
+    })
+  }
+}
+function goBack() {
+  window.location.href = "index.html";
+}
+
+// clears all local data and refreshes the page
+function clearLocalStorage() {
+  localStorage.clear();
+  location.reload();
+
+  alert("Your High Scores have been cleared!")
+}
+
+// For other pages, update question number and timer
+updateQuestionNumber();
+updateTimer();
+UpdateResult();
+updateScore()
+displayHighScores();
